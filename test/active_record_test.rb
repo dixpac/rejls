@@ -31,8 +31,7 @@ class ActiveRecordTest < Minitest::Test
   def test_all
     posts = Post.all
 
-    assert_kind_of Array, posts
-    assert_equal   2, posts.size
+    assert_kind_of ActiveRecord::Relation, posts
 
     post = posts.first
     assert_equal post.id, 1
@@ -47,6 +46,17 @@ class ActiveRecordTest < Minitest::Test
     row = rows.first
     assert_kind_of Hash, row
     assert_equal [:id, :title, :body, :created_at, :updated_at], row.keys
+  end
+
+  def test_where
+    relation = Post.where("id = 1").where("title IS NOT NULL")
+    assert_equal "SELECT * FROM posts WHERE id = 1 AND title IS NOT NULL",
+      relation.to_sql
+
+    post = relation.first
+    assert_equal post.id, 1
+    assert_equal post.title, "Post A"
+    assert_equal post.body, "Body a....."
   end
 
 end

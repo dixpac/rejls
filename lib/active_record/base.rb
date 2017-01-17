@@ -11,7 +11,6 @@ module ActiveRecord
 
     def method_missing(name, *args)
       columns = self.class.connection.columns(self.class.table_name)
-      # [:id./........]
 
       if columns.include?(name)
         @attributes[name]
@@ -25,10 +24,11 @@ module ActiveRecord
     end
 
     def self.all
-      connection.execute("SELECT * FROM #{table_name}").map do |attributes|
-        new(attributes)
-      end
-      #find_by_sql("SELECT * FROM #{table_name}")
+      Relation.new(self)
+    end
+
+    def self.where(*args)
+      all.where(*args)
     end
 
     def self.find_by_sql(sql)
