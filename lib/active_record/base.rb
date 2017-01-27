@@ -31,6 +31,10 @@ module ActiveRecord
       all.where(*args)
     end
 
+    def self.order(*args)
+      all.order(*args)
+    end
+
     def self.find_by_sql(sql)
       connection.execute(sql).map do |attributes|
         new(attributes)

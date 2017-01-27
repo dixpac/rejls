@@ -59,4 +59,9 @@ class ActiveRecordTest < Minitest::Test
     assert_equal post.body, "Body a....."
   end
 
+  def test_order
+    relation = Post.order("created_at DESC").order("id")
+    assert_equal "SELECT * FROM posts ORDER BY created_at DESC, id", relation.to_sql
+  end
+
 end
