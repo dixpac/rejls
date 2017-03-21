@@ -1,3 +1,5 @@
+require "sprockets"
+
 module Rails
   autoload :Application, "rails/application"
 
