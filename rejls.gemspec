@@ -29,10 +29,17 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rack", "~> 2.x"
+  spec.add_dependency "sprockets", "~> 3.0"
+  spec.add_dependency "sass"
+  spec.add_dependency "coffee-script"
+  spec.add_dependency "rack", "~> 2.x"
+
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-reporters"
   spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "byebug"
+  spec.add_development_dependency "puma"
+
 end
