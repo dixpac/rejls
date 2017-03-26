@@ -12,9 +12,9 @@ module ActionView
       @name.gsub(/[^\w]/, "_")
     end
 
-    def render(context)
+    def render(context, &block)
       compile
-      context.send(method_name)
+      context.send(method_name, &block)
     end
 
     def compile
