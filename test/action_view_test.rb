@@ -21,4 +21,11 @@ class ActiveViewTest < Minitest::Test
 
     assert_equal "<p>yielding</p>", template.render(context) { "yielding" }
   end
+
+  def test_render_with_helpers
+    template = ActionView::Template.new("<%= link_to 'test', '/url' %>", "test_template_helper")
+    context = ActionView::Base.new
+
+    assert_equal "<a href=\"/url\">test</a>", template.render(context)
+  end
 end

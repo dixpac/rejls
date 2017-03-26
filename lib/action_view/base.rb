@@ -1,6 +1,6 @@
 module ActionView
   class Base
-    include CompiledTemplates
+    include CompiledTemplates, Helpers
 
     def initialize(assigns = {})
       assigns.each_pair do |name, value|
