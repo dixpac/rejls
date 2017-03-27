@@ -55,7 +55,17 @@ class ActiveViewTest < Minitest::Test
 
     response = request.get("/posts/show?id=1")
 
-    puts response.body
     assert_match "<h1>Post A</h1>", response.body
+  end
+
+  def test_render_with_layout
+    request = Rack::MockRequest.new(Rails.application)
+
+    response = request.get("/posts/show?id=1")
+
+    puts response.body
+    assert_match "<html>", response.body
+    assert_match "<h1>Post A</h1>", response.body
+    assert_match "</html>", response.body
   end
 end
