@@ -49,4 +49,13 @@ class ActiveViewTest < Minitest::Test
 
     assert_equal({ "var" => "yo" }, controller.view_assigns)
   end
+
+  def test_render
+    request = Rack::MockRequest.new(Rails.application)
+
+    response = request.get("/posts/show?id=1")
+
+    puts response.body
+    assert_match "<h1>Post A</h1>", response.body
+  end
 end

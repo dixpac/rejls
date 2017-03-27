@@ -20,7 +20,7 @@ module ActiveRecord
     end
 
     def self.find(value)
-      find_by_sql("SELECT * FROM #{table_name} WHERE id=#{value.to_int}").first
+      find_by_sql("SELECT * FROM #{table_name} WHERE id=#{value.to_i}").first
     end
 
     def self.all
