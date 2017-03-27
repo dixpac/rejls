@@ -29,11 +29,24 @@ class ActiveViewTest < Minitest::Test
     assert_equal "<a href=\"/url\">test</a>", template.render(context)
   end
 
-  def test_finde_template
+  def test_find_template
     file = "#{__dir__}/blog/app/views/posts/index.html.erb"
     template_1 = ActionView::Template.find(file)
     template_2 = ActionView::Template.find(file)
 
     assert_same template_1, template_2
+  end
+
+  class TestController < ApplicationController
+    def index
+      @var = "yo"
+    end
+  end
+
+  def test_find_template
+    controller = TestController.new
+    controller.index
+
+    assert_equal({ "var" => "yo" }, controller.view_assigns)
   end
 end
