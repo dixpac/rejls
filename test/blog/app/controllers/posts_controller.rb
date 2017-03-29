@@ -3,12 +3,6 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    response.write "<h1>Well, hello! Your posts are</h1>"
-    response.write "<ul>"
-    @posts.each do |post|
-      response.write "<li>#{post.title}</h1>"
-    end
-    response.write "</ul>"
   end
 
   def show

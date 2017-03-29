@@ -15,8 +15,9 @@ module ActionDispatch
       end
 
       def resources(plural_name)
-        get "/#{plural_name}", to: "#{plural_name}#index", as: plural_name
+        get "/#{plural_name}", to: "#{plural_name}#index", as: plural_name.to_s
         get "/#{plural_name}/new", to: "#{plural_name}#new", as: "new_#{plural_name.to_s.singularize}"
+        get "/#{plural_name}/show", to: "#{plural_name}#show", as: plural_name.to_s.singularize
       end
     end
   end

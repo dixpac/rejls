@@ -28,4 +28,52 @@ class ActiveViewTest < Minitest::Test
 
     assert_equal "<a href=\"/url\">test</a>", template.render(context)
   end
+
+  def test_find_template
+    file = "#{__dir__}/blog/app/views/posts/index.html.erb"
+    template_1 = ActionView::Template.find(file)
+    template_2 = ActionView::Template.find(file)
+
+    assert_same template_1, template_2
+  end
+
+  class TestController < ApplicationController
+    def index
+      @var = "yo"
+    end
+  end
+
+  def test_find_template
+    controller = TestController.new
+    controller.index
+
+    assert_equal({ "var" => "yo" }, controller.view_assigns)
+  end
+
+  def test_render
+    request = Rack::MockRequest.new(Rails.application)
+
+    response = request.get("/posts/show?id=1")
+
+    assert_match "<h1>Post A</h1>", response.body
+  end
+
+  def test_render_with_layout
+    request = Rack::MockRequest.new(Rails.application)
+
+    response = request.get("/posts/show?id=1")
+
+    puts response.body
+    assert_match "<html>", response.body
+    assert_match "<h1>Post A</h1>", response.body
+    assert_match "</html>", response.body
+  end
+
+  def test_render_index
+    request = Rack::MockRequest.new(Rails.application)
+
+    response = request.get("/posts")
+
+    assert_match "<h1>The Blog</h1>", response.body
+  end
 end
